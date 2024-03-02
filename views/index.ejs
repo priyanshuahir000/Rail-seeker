@@ -4,11 +4,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
     <title>Rail Seeker</title>
 </head>
 
 <body>
+    <h1>Enter Train Number</h1>
+    <form action="/search" method="post">
+        <input type="text" name="trainNumber" placeholder="Enter 5 digit train number" id="tn" required>
+        <button type="submit" id="search">Search</button>
+    </form>
+    <% if(locals.content) {%>
+        <p>
+            <%= content %>
+        </p>
+        <%} else if(locals.trainInfo) { %>
+            <h1>Train Information</h1>
+            <p><strong>Train Number:</strong>
+                <%= trainInfo.trainNumber %>
+            </p>
+            <p><strong>Train Name:</strong>
+                <%= trainInfo.trainName %>
+            </p>
+            <p><strong>Train Full Name:</strong>
+                <%= trainInfo.trainFullName %>
+            </p>
+            <p><strong>Departure Time:</strong>
+                <%= trainInfo.departureTime %>
+            </p>
+            <p><strong>Arrival Time:</strong>
+                <%= trainInfo.arrivalTime %>
+            </p>
+            <p><strong>Duration:</strong>
+                <%= trainInfo.duration %>
+            </p>
+            <p><strong>Runs on:</strong>
+                <% Object.keys(trainInfo.trainRunsOn).forEach(day=> { %>
+                    <% if(trainInfo.trainRunsOn[day]) { %>
+                        <%= day.charAt(0).toUpperCase() + day.slice(1) %>
+                            <% } %>
 
+                                <% if(day !=='saturday' ) { %>
+                                    <% } %>
+                                        <% }) %>
+            </p>
+            <p><strong>Number of Stops:</strong>
+                <%= trainInfo.numberOfStops %>
+            </p>
+            <p><strong>Train Type Code:</strong>
+                <%= trainInfo.trainTypeCode %>
+            </p>
+            <p><strong>Distance:</strong>
+                <%= trainInfo.distance %> km
+            </p>
+            <p><strong>Available Classes:</strong>
+                <%= trainInfo.availableClasses.join(', ') %></p>
+        <p><strong>Average Speed:</strong> <%= trainInfo.avgSpeed %> km/h</p>
+        <p><strong>Has Pantry:</strong> <%= trainInfo.hasPantry ? ' Yes' : 'No' %>
+            </p>
+            <p><strong>Return Train Number:</strong>
+                <%= trainInfo.returnTrainNumber %>
+            </p>
+            <p><strong>Last Updated:</strong>
+                <%= trainInfo.updatedAt %>
+            </p>
+            <p><strong>Station From:</strong>
+                <%= trainInfo.stationFrom.stationName %> (<%= trainInfo.stationFrom.stationCode %>)
+            </p>
+            <p><strong>Station To:</strong>
+                <%= trainInfo.stationTo.stationName %> (<%= trainInfo.stationTo.stationCode %>)
+            </p>
+            <% } else { %>
+                <p>No train information available.</p>
+                <% } %>
 </body>
 
 </html>
