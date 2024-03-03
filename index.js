@@ -10,7 +10,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.render("index.ejs", { content: "Have a faith in us?" });
+  res.render("index.ejs", {
+    content: "Ensure your train number consists of 5 digits (e.g., 12601).",
+  });
 });
 
 app.post("/search", async (req, res) => {
