@@ -15,6 +15,15 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/what.ejs", (req, res) => {
+  res.render("what.ejs");
+});
+app.get("/how.ejs", (req, res) => {
+  res.render("how.ejs");
+});
+app.get("/who.ejs", (req, res) => {
+  res.render("who.ejs");
+});
 app.post("/search", async (req, res) => {
   const trainNumber = req.body.trainNumber;
   if (trainNumber.length != 5) {

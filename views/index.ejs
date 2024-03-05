@@ -1,249 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("partials/header.ejs") %>
+    <div class="main-box">
+        <div class="main">
+            <div class="wrapper">
+                <div class="content">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
-    <title>Rail Seeker</title>
-</head>
+                    <h1>Enter Train Number</h1>
 
-<body id="top" class="day">
-    <header class="day">
-        <div class="sun day toggler"><a></a></div>
-        <div class="moon day toggler"><a></a></div>
-
-        <div class="cloud-container">
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-        </div>
-        <div class="stars day">
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-        </div>
-        <div class="banner">
-            <div class="circle"></div>
-            <h1>
-                <b>Rail Seeker</b>
-            </h1>
-        </div>
-        </div>
-
-        <div class="train-container">
-            <div class="train">
-                <div class="train-car head-car">
-                    <div class="roof"></div>
-                    <div class="windows">
-                        <div class="head-car-window"></div>
-                        <div class="w-left"></div>
-                        <div class="w-right"></div>
+                    <form action="/search" method="post" class="">
+                        <input class="trainNumber" type="text" name="trainNumber"
+                            placeholder="Enter 5 digit train number" id="tn" required>
+                        <button type="submit" id="search" class="button">Search</button>
+                    </form>
+                    <div class="">
+                        <% if(locals.content) { %>
+                            <h3>Access accurate train details effortlessly.</h3>
+                            <p>
+                                <%= content %>
+                            </p>
+                            <% } else if(locals.trainInfo) { %>
+                                <h3>Train Information</h3>
+                                <table>
+                                    <tr>
+                                        <td><strong>Train Number:</strong></td>
+                                        <td>
+                                            <%= trainInfo.trainNumber %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Train Name:</strong></td>
+                                        <td>
+                                            <%= trainInfo.trainName %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Train Full Name:</strong></td>
+                                        <td>
+                                            <%= trainInfo.trainFullName %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Departure Time:</strong></td>
+                                        <td>
+                                            <%= trainInfo.departureTime %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Arrival Time:</strong></td>
+                                        <td>
+                                            <%= trainInfo.arrivalTime %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Duration:</strong></td>
+                                        <td>
+                                            <%= trainInfo.duration %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Runs on:</strong></td>
+                                        <td>
+                                            <% Object.keys(trainInfo.trainRunsOn).forEach(day=> { %>
+                                                <% if(trainInfo.trainRunsOn[day]) { %>
+                                                    <%= day.charAt(0).toUpperCase() + day.slice(1) %>
+                                                        <% } %>
+                                                            <% }) %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Number of Stops:</strong></td>
+                                        <td>
+                                            <%= trainInfo.numberOfStops %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Train Type Code:</strong></td>
+                                        <td>
+                                            <%= trainInfo.trainTypeCode %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Distance:</strong></td>
+                                        <td>
+                                            <%= trainInfo.distance %> km
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Available Classes:</strong></td>
+                                        <td>
+                                            <%= trainInfo.availableClasses.join(', ') %></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Average Speed:</strong></td>
+                                    <td><%= trainInfo.avgSpeed %> km/h</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Has Pantry:</strong></td>
+                                    <td><%= trainInfo.hasPantry ? ' Yes' : 'No' %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Return Train Number:</strong></td>
+                                        <td>
+                                            <%= trainInfo.returnTrainNumber %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Last Updated:</strong></td>
+                                        <td>
+                                            <%= trainInfo.updatedAt %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Station From:</strong></td>
+                                        <td>
+                                            <%= trainInfo.stationFrom.stationName %> (<%=
+                                                    trainInfo.stationFrom.stationCode %>)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Station To:</strong></td>
+                                        <td>
+                                            <%= trainInfo.stationTo.stationName %> (<%= trainInfo.stationTo.stationCode
+                                                    %>)
+                                        </td>
+                                    </tr>
+                                </table>
+                                <% } else { %>
+                                    <p>No train information available.</p>
+                                    <% } %>
                     </div>
-                    <div class="door"></div>
                 </div>
 
-                <div class="train-car">
-                    <div class="roof"></div>
-
-                    <div class="windows">
-                        <div class="w-left"></div>
-                        <div class="w-right"></div>
-                    </div>
-                    <div class="door"></div>
-                    <div class="windows">
-                        <div class="w-left"></div>
-                        <div class="w-right"></div>
-                    </div>
-                </div>
-
-                <div class="train-car">
-                    <div class="roof"></div>
-
-                    <div class="windows">
-                        <div class="w-left"></div>
-                        <div class="w-right"></div>
-                    </div>
-                    <div class="door"></div>
-                    <div class="windows">
-                        <div class="w-left"></div>
-                        <div class="w-right"></div>
-                    </div>
-                </div>
-
-                <div class="train-car">
-                    <div class="roof"></div>
-
-                    <div class="windows">
-                        <div class="w-left"></div>
-                        <div class="w-right"></div>
-                    </div>
-                    <div class="door"></div>
-                    <div class="windows">
-                        <div class="w-left"></div>
-                        <div class="w-right"></div>
-                    </div>
-                </div>
-
-                <div class="train-car">
-                    <div class="roof"></div>
-
-                    <div class="windows">
-                        <div class="w-left"></div>
-                        <div class="w-right"></div>
-                    </div>
-                    <div class="door"></div>
-                    <div class="windows">
-                        <div class="w-left"></div>
-                        <div class="w-right"></div>
-                    </div>
-                </div>
-
-                <div class="train-car end-car">
-                    <div class="roof"></div>
-
-                    <div class="door"></div>
-
-
-                </div>
-
-            </div><!-- end .train-->
-
-
-
-        </div>
-        <nav>
-            <div class="nav-wrap">
-                <a href="#"><span>Home</span></a>
-                <a href="#"><span>What?</span></a>
-                <a href="#"><span>How?</span></a>
-                <a href="#"><span>Who?</span></a>
-            </div>
-        </nav>
-    </header>
-    <h1>Enter Train Number</h1>
-    <form action="/search" method="post" class="search-form">
-        <input class="trainNumber" type="text" name="trainNumber" placeholder="Enter 5 digit train number" id="tn"
-            required>
-        <button type="submit" id="search" class="button">Search</button>
-    </form>
-
-
-    <div class=" box frame " style="width: 650px; margin-top: 50px;">
-        <% if(locals.content) {%>
-            <h3>Access accurate train details effortlessly.</h3>
-            <p>
-                <%= content %>
-            </p>
-            <%} else if(locals.trainInfo) { %>
-                <h3>Train Information</h3>
-                <p><strong>Train Number:</strong>
-                    <%= trainInfo.trainNumber %>
-                </p>
-                <p><strong>Train Name:</strong>
-                    <%= trainInfo.trainName %>
-                </p>
-                <p><strong>Train Full Name:</strong>
-                    <%= trainInfo.trainFullName %>
-                </p>
-                <p><strong>Departure Time:</strong>
-                    <%= trainInfo.departureTime %>
-                </p>
-                <p><strong>Arrival Time:</strong>
-                    <%= trainInfo.arrivalTime %>
-                </p>
-                <p><strong>Duration:</strong>
-                    <%= trainInfo.duration %>
-                </p>
-                <p><strong>Runs on:</strong>
-                    <% Object.keys(trainInfo.trainRunsOn).forEach(day=> { %>
-                        <% if(trainInfo.trainRunsOn[day]) { %>
-                            <%= day.charAt(0).toUpperCase() + day.slice(1) %>
-                                <% } %>
-
-                                    <% if(day !=='saturday' ) { %>
-                                        <% } %>
-                                            <% }) %>
-                </p>
-                <p><strong>Number of Stops:</strong>
-                    <%= trainInfo.numberOfStops %>
-                </p>
-                <p><strong>Train Type Code:</strong>
-                    <%= trainInfo.trainTypeCode %>
-                </p>
-                <p><strong>Distance:</strong>
-                    <%= trainInfo.distance %> km
-                </p>
-                <p><strong>Available Classes:</strong>
-                    <%= trainInfo.availableClasses.join(', ') %></p>
-                                    <p><strong>Average Speed:</strong> <%= trainInfo.avgSpeed %> km/h</p>
-                                    <p><strong>Has Pantry:</strong> <%= trainInfo.hasPantry ? ' Yes' : 'No' %>
-                </p>
-                <p><strong>Return Train Number:</strong>
-                    <%= trainInfo.returnTrainNumber %>
-                </p>
-                <p><strong>Last Updated:</strong>
-                    <%= trainInfo.updatedAt %>
-                </p>
-                <p><strong>Station From:</strong>
-                    <%= trainInfo.stationFrom.stationName %> (<%= trainInfo.stationFrom.stationCode %>)
-                </p>
-                <p><strong>Station To:</strong>
-                    <%= trainInfo.stationTo.stationName %> (<%= trainInfo.stationTo.stationCode %>)
-                </p>
-                <% } else { %>
-                    <p>No train information available.</p>
-                    <% } %>
-                        <a class=" button" href="#">Read</a>
-                        <a class="button alt" href="#">Submit</a>
-    </div>
-    </div>
-    </div>
-    <div class="column-wrap">
-        <div class="box main-box" style="height: 300px;">
-            <div class="box-inner">
-                <div class="box toggler frame">
-                    <div class="screw"></div>
-                    <div class="toggler-inner" class="day" data-toggle="top"></div>
-                </div>
             </div>
         </div>
-
     </div>
-
-    <div class="container">
-        <div class="moon"></div>
-        <div class="cloud-container">
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-        </div> <!--end .cloud-container-->
-
-        <div class="stars">
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-        </div>
-        <div class="mountain"></div>
-        <!--end .train-track-->
-    </div> <!--end .train-container-->
-    </div> <!--end .container-->
-</body>
-<script src="js/theme.js"></script>
-
-</html>
+    <%- include("partials/footer.ejs" ) %>
