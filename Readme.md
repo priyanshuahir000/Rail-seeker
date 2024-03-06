@@ -14,7 +14,7 @@ Rail Seeker is a web application designed to provide users with accurate and up-
 
 1. Clone the repository.
 2. Install dependencies using `npm install`.
-3. Run the application using `npm index.js`.
+3. Run the application using `nodemon index.js` or `node index.js`.
 4. Access the application in your browser at `http://localhost:3000`.
 
 ## How It Works
