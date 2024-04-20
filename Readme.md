@@ -10,6 +10,13 @@ Rail Seeker is a web application designed to provide users with accurate and up-
 - **Deployment**: Easy deployment instructions are provided for setting up Rail Seeker in a hosting environment.
 - **Optimization**: Performance optimization techniques are employed to ensure a smooth user experience.
 
+## Screenshots
+### Light theme
+![light theme screenshot](https://github.com/priyanshuahir000/Rail-seeker/blob/main/Images/light-mode-screenshot.gif)
+
+### Dark theme
+![dark theme screenshot](https://github.com/priyanshuahir000/Rail-seeker/blob/main/Images/dark-mode-screenshot.gif)
+
 ## How to Use
 
 1. Clone the repository.
