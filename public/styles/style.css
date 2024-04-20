@@ -40,6 +40,24 @@ body {
     align-items: center;
 }
 
+
+    body::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    body::-webkit-scrollbar-track {
+        background-color: var(--dark);
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: var(--light);
+        border-radius: 5px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+        background-color: var(--box);
+    }
+
 .trainNumber::placeholder {
     color: #0d0f14;
 }
@@ -121,7 +139,7 @@ header {
 
 }
 
-header.toggled {
+body.toggled {
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
 }
 
@@ -707,7 +725,7 @@ h1 {
 
 }
 
-. h2 {
+.h2 {
     margin: 2em auto;
     text-shadow: 1px 1px black;
 }
